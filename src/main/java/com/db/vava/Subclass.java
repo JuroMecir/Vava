@@ -1,9 +1,6 @@
 package com.db.vava;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Subclass {
@@ -13,7 +10,7 @@ public class Subclass {
 
     private String name;
 
-    private Integer class_id;
+    private Integer classId;
 
     private String feature_1;
     private String feature_2;
@@ -35,6 +32,6 @@ public class Subclass {
     }
 
     public Integer getClassId() {
-        return class_id;
+        return classId;
     }
 }

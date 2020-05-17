@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Optional;
+
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/character") // This means URL's start with /demo (after Application path)
 public class MainController {
@@ -41,9 +43,10 @@ public class MainController {
     }
 
     @GetMapping(path="/subclasses")
-    public @ResponseBody Iterable<Subclass> getAllSubclasses() {
+    public @ResponseBody Iterable<Subclass> getSubclasses(@RequestParam Integer class_id) {
         // This returns a JSON or XML with the users
-        return subclassRepository.findAll();
+        //return subclassRepository.findAll();
+        return subclassRepository.findAllByClassId(class_id);
     }
 
     @GetMapping(path="/backgrounds")
