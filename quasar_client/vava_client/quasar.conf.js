@@ -1,5 +1,6 @@
 // Configuration for your app
 
+
 module.exports = function (ctx) {
   return {
     // app plugins (/src/plugins)
@@ -49,7 +50,10 @@ module.exports = function (ctx) {
         'QListHeader',
         'QItem',
         'QItemMain',
-        'QItemSide'
+        'QItemSide',
+        'QStepper',
+        'QStep',
+        'QStepperNavigation'
       ],
       directives: [
         'Ripple'

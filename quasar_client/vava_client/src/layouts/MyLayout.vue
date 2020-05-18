@@ -6,61 +6,90 @@
         :glossy="$q.theme === 'mat'"
         :inverted="$q.theme === 'ios'"
       >
-        <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-        >
-          <q-icon name="menu" />
-        </q-btn>
-
         <q-toolbar-title>
-          Quasar App
+          5e Character sheet creator
           <div slot="subtitle">Running on Quasar v{{ $q.version }}</div>
         </q-toolbar-title>
       </q-toolbar>
     </q-layout-header>
-
-    <q-layout-drawer
-      v-model="leftDrawerOpen"
-      :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null"
-    >
-      <q-list
-        no-border
-        link
-        inset-delimiter
-      >
-        <q-list-header>Essential Links</q-list-header>
-        <q-item @click.native="openURL('http://quasar-framework.org')">
-          <q-item-side icon="school" />
-          <q-item-main label="Docs" sublabel="quasar-framework.org" />
-        </q-item>
-        <q-item @click.native="openURL('https://github.com/quasarframework/')">
-          <q-item-side icon="code" />
-          <q-item-main label="GitHub" sublabel="github.com/quasarframework" />
-        </q-item>
-        <q-item @click.native="openURL('https://discord.gg/5TDhbDg')">
-          <q-item-side icon="chat" />
-          <q-item-main label="Discord Chat Channel" sublabel="https://discord.gg/5TDhbDg" />
-        </q-item>
-        <q-item @click.native="openURL('http://forum.quasar-framework.org')">
-          <q-item-side icon="record_voice_over" />
-          <q-item-main label="Forum" sublabel="forum.quasar-framework.org" />
-        </q-item>
-        <q-item @click.native="openURL('https://twitter.com/quasarframework')">
-          <q-item-side icon="rss feed" />
-          <q-item-main label="Twitter" sublabel="@quasarframework" />
-        </q-item>
-      </q-list>
-    </q-layout-drawer>
-
     <q-page-container>
-      <router-view />
+      
+    	<template>
+		  <div class="q-pa-md">
+		    <q-stepper
+		      v-model="step"
+		      ref="stepper"
+		      color="primary"
+		      animated
+		    >
+		      <q-step
+		        :step="1"
+		        title="Select race"
+		        icon="settings"
+		        :done="step > 1"
+		      >
+		        For each race...
+		      </q-step>
+
+		      <q-step
+		        :step="2"
+		        title="Select background"
+		        icon="create_new_folder"
+		        :done="step > 2"
+		      >
+		        For each background...
+		      </q-step>
+
+		      <q-step
+		        :step="3"
+		        title="Select race"
+		        icon="assignment"
+		        :done="step > 3"
+		      >
+		        For each race...
+		      </q-step>
+
+		      <q-step
+		        :step="4"
+		        title="Select subrace"
+		        icon="add_comment"
+		        :done="step > 4"
+
+		      >
+		        For each subrace...
+		      </q-step>
+
+		      <q-step
+		        :step="5"
+		        title="create pdf"
+		        icon="settings"
+		        
+		      >
+		        blabla
+		      </q-step>
+
+		      <template v-slot:navigation>
+		        <q-stepper-navigation>
+		          <q-btn @click="$refs.stepper.next()" color="primary" :label="step === 5 ? 'Finish' : 'Continue'" />
+		          <q-btn v-if="step > 1" flat color="primary" @click="$refs.stepper.previous()" label="Back" class="q-ml-sm" />
+		        </q-stepper-navigation>
+		      </template>
+		    </q-stepper>
+		  </div>
+		</template>
+
     </q-page-container>
+
+
+
+
   </q-layout>
 </template>
+
+
+
+
+
 
 <script>
 import { openURL } from 'quasar'
