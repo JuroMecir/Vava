@@ -1,0 +1,14 @@
+1. install NPM
+
+2. install Vue CLI and Quasar CLI
+
+npm install -g vue-cli
+npm install -g @quasar/cli
+
+3. change current directory to directory with quasar project
+
+cd vava_client
+
+4. run quasar project 
+
+quasar dev
