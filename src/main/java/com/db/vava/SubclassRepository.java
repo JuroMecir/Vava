@@ -1,6 +1,7 @@
 package com.db.vava;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,6 +12,13 @@ import java.util.List;
 @Repository
 public interface SubclassRepository extends JpaRepository<Subclass, Integer> {
 
-    List<Subclass> findAllByClassId(Integer classId);
+    @Query("select s.id from Subclass s where s.classId = ?1")
+    List<Integer> findIdsByClassId(Integer classId);
+
+    @Query("select s.name from Subclass s where s.classId = ?1")
+    List<String> findNamesByClassId(Integer classId);
+
+    @Query("select s from Subclass s where s.id = ?1")
+    Subclass getById(Integer id);
 
 }
