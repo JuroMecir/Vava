@@ -53,7 +53,9 @@ module.exports = function (ctx) {
         'QItemSide',
         'QStepper',
         'QStep',
-        'QStepperNavigation'
+        'QStepperNavigation',
+        'QRadio',
+        'QOptionGroup'
       ],
       directives: [
         'Ripple'

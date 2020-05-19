@@ -46,10 +46,10 @@ public class MainController {
 
     @GetMapping(path="/subclasses")
     @CrossOrigin(origins = "*")
-    public @ResponseBody Iterable<Subclass> getSubclasses(@RequestParam Integer class_id) {
+    public @ResponseBody Iterable<Subclass> getAllSubclasses() {
         // This returns a JSON or XML with the users
         //return subclassRepository.findAll();
-        return subclassRepository.findAllByClassId(class_id);
+        return subclassRepository.findAll();
     }
 
     @GetMapping(path="/backgrounds")

@@ -1,6 +1,7 @@
 import Main from 'layouts/Main'
 import Users from 'pages/Users'
 
+
 const routes = [
   {
     path: '/',
@@ -10,6 +11,9 @@ const routes = [
       {
         path: '/',
         component: Users
+        
+
+      
       }
     ]
   }
