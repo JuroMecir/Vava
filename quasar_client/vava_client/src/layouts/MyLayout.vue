@@ -13,7 +13,7 @@
       </q-toolbar>
     </q-layout-header>
     <q-page-container>
-      
+
     	<template>
 		  <div class="q-pa-md">
 		    <q-stepper
@@ -42,28 +42,28 @@
 
 		      <q-step
 		        :step="3"
-		        title="Select race"
+		        title="Select class"
 		        icon="assignment"
 		        :done="step > 3"
 		      >
-		        For each race...
+		        For each class...
 		      </q-step>
 
 		      <q-step
 		        :step="4"
-		        title="Select subrace"
+		        title="Select subclass"
 		        icon="add_comment"
 		        :done="step > 4"
 
 		      >
-		        For each subrace...
+		        For each subclass...
 		      </q-step>
 
 		      <q-step
 		        :step="5"
 		        title="create pdf"
 		        icon="settings"
-		        
+
 		      >
 		        blabla
 		      </q-step>
@@ -79,12 +79,10 @@
 		</template>
 
     </q-page-container>
-
-
-
-
   </q-layout>
 </template>
+
+
 
 
 

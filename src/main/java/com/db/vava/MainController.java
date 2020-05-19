@@ -2,6 +2,7 @@ package com.db.vava;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,12 +38,14 @@ public class MainController {
     }*/
 
     @GetMapping(path="/classes")
+    @CrossOrigin(origins = "*")
     public @ResponseBody Iterable<Class> getAllClasses() {
         // This returns a JSON or XML with the users
         return classRepository.findAll();
     }
 
     @GetMapping(path="/subclasses")
+    @CrossOrigin(origins = "*")
     public @ResponseBody Iterable<Subclass> getSubclasses(@RequestParam Integer class_id) {
         // This returns a JSON or XML with the users
         //return subclassRepository.findAll();
@@ -50,12 +53,14 @@ public class MainController {
     }
 
     @GetMapping(path="/backgrounds")
+    @CrossOrigin(origins = "*")
     public @ResponseBody Iterable<Background> getAllBackgrounds() {
         // This returns a JSON or XML with the users
         return backgroundRepository.findAll();
     }
 
     @GetMapping(path="/races")
+    @CrossOrigin(origins = "*")
     public @ResponseBody Iterable<Race> getAllRaces() {
         // This returns a JSON or XML with the users
         return raceRepository.findAll();

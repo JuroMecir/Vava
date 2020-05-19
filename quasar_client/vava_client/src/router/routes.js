@@ -1,10 +1,16 @@
+import Main from 'layouts/Main'
+import Users from 'pages/Users'
 
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MyLayout.vue'),
+    component: Main,
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      // users page
+      {
+        path: '/',
+        component: Users
+      }
     ]
   }
 ]
