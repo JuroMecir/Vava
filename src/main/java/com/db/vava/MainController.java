@@ -1,14 +1,24 @@
 package com.db.vava;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -92,13 +102,52 @@ public class MainController {
     }
 
     @GetMapping(path="")
-    public @ResponseBody Character getCharacter(@RequestParam Integer classId, @RequestParam Integer subclassId,
-                                                     @RequestParam Integer backgroundId, @RequestParam Integer raceId) {
+    public void getCharacter(HttpServletResponse response,
+                                     @RequestParam Integer classId,
+                                     @RequestParam Integer subclassId,
+                                     @RequestParam Integer backgroundId,
+                                     @RequestParam Integer raceId) throws Exception {
+
         Character character = new Character();
         character.setCharacterClass(classRepository.getById(classId));
         character.setCharacterSubclass(subclassRepository.getById(subclassId));
         character.setCharacterBackground(backgroundRepository.getById(backgroundId));
         character.setCharacterRace(raceRepository.getById(raceId));
-        return character;
+
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream("character.pdf"));
+        } catch (DocumentException | FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        document.open();
+        WriteController writeController = new WriteController();
+        writeController.writeCharacter(document, character);
+        document.close();
+        generateReport(response);
     }
+
+    public void generateReport(HttpServletResponse response) throws Exception {
+
+        Path pdfPath = Paths.get("character.pdf");
+        byte[] data = Files.readAllBytes(pdfPath);
+        streamReport(response, data, "character.pdf");
+    }
+
+    protected void streamReport(HttpServletResponse response, byte[] data, String name) throws IOException {
+
+        response.setContentType("application/pdf");
+        response.setHeader("Content-disposition", "attachment; filename=" + name);
+        response.setContentLength(data.length);
+        //response.setHeader("Refresh", "1; url = https://www.google.com");
+
+        response.getOutputStream().write(data);
+        response.getOutputStream().flush();
+        response.getOutputStream().close();
+
+    }
+
 }
+
+
