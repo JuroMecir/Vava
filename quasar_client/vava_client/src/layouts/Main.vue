@@ -1,11 +1,7 @@
 <template>
   <q-layout>
     <q-layout-header>
-      <q-toolbar
-        color="primary"
-        :glossy="$q.theme === 'mat'"
-        :inverted="$q.theme === 'ios'"
-      >
+      <q-toolbar :glossy="$q.theme === 'mat'" :inverted="$q.theme === 'ios'">
         <q-toolbar-title>
           5e Character sheet creator
           <div slot="subtitle">
@@ -16,12 +12,12 @@
           v-model="lang"
           :options="langOptions"
           label="Quasar Language"
+          justify-center
           dense
-          borderless
+          standout="bg-primary text-white"
           emit-value
           map-options
           options-dense
-          bg-color="blue-1"
           style="min-width: 150px"
         />
       </q-toolbar>

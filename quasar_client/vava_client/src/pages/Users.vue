@@ -145,6 +145,7 @@
                   )
                 : $refs.stepper.next()
             "
+            align="center"
             color="primary"
             :label="step === 5 ? $t('createCharacterTag') : $t('continueTag')"
           />
@@ -171,22 +172,41 @@ export default {
       subclassMissingTag,
       backgroundMissingTag
     ) {
-      let warning = "";
+      let warnings = [];
       let x = 0;
+      let num = 0;
       let temp = subclasses.find(item => item.value === subclassSelected);
       console.log(temp);
-      if (!raceSelected) warning = warning + raceMissingTag + " \n";
-      if (!backgroundSelected) warning = warning + backgroundMissingTag + " \n";
-      if (!specializationSelected) warning = warning + classMissingTag + " \n";
+      if (!raceSelected) {
+        warnings.push(raceMissingTag);
+        num++;
+      }
+      if (!backgroundSelected) {
+        warnings.push(backgroundMissingTag);
+        num++;
+      }
+      if (!specializationSelected) {
+        warnings.push(classMissingTag);
+        num++;
+      }
       if (!subclassSelected) {
-        warning = warning + subclassMissingTag + " \n";
+        warnings.push(subclassMissingTag);
         x++;
+        num++;
       }
       if (x === 0) {
         if (temp.classId !== specializationSelected)
-          warning = warning + subclassMissingTag + " \n";
+          warnings.push(subclassMissingTag);
+        num++;
       }
-      if (warning) return alert(warning);
+
+      if (warnings.toString()) {
+        warnings.forEach(element =>
+          this.$q.notify({ message: element, color: "red" })
+        );
+        return null;
+      }
+
       location.href = `http://localhost:8080/character?classId=${specializationSelected}&subclassId=${subclassSelected}&backgroundId=${backgroundSelected}&raceId=${raceSelected}`;
     }
   },
@@ -287,4 +307,4 @@ function create_char() {
 }
 </script>
 
-<style></style>
+<style type="text/css"></style>
