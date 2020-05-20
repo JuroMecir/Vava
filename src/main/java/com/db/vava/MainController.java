@@ -2,11 +2,7 @@ package com.db.vava;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
@@ -26,7 +22,7 @@ public class MainController {
     @Autowired
     private BackgroundRepository backgroundRepository;
 
-
+    //@CrossOrigin(origins = "*")
     @GetMapping(path="/classes")
     public @ResponseBody
     List<Class> getAllClasses() {
@@ -43,6 +39,7 @@ public class MainController {
         return classes;
     }
 
+    //@CrossOrigin(origins = "*")
     @GetMapping(path="/subclasses")
     public @ResponseBody List<Subclass> getSubclasses(@RequestParam Integer classId) {
         // This returns a JSON or XML with the races
@@ -59,6 +56,7 @@ public class MainController {
         return subclasses;
     }
 
+    //@CrossOrigin(origins = "*")
     @GetMapping(path="/backgrounds")
     public @ResponseBody
     List<Background> getAllBackgrounds() {
@@ -75,6 +73,7 @@ public class MainController {
         return backgrounds;
     }
 
+    //@CrossOrigin(origins = "*")
     @GetMapping(path="/races")
     public @ResponseBody
     List<Race> getAllRaces() {
