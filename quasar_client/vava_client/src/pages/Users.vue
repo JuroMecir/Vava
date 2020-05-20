@@ -102,7 +102,7 @@
             class="q-ml-sm"
           />
           <q-btn
-            @click="$refs.stepper.next()"
+            v-on:click="step === 5 ? create_char(raceSelected,backgroundSelected,specializationSelected,subclassSelected) :$refs.stepper.next() "
             color="primary"
             :label="step === 5 ? 'Finish' : 'Continue'"
           />
@@ -117,6 +117,32 @@ import axios from "axios";
 
 export default {
   // name: 'PageName',
+  methods: {
+    create_char: function(
+      raceSelected,
+      backgroundSelected,
+      specializationSelected,
+      subclassSelected
+    ) {
+      let warning = "";
+      if (!raceSelected) warning = warning + "Select race! \n";
+      if (!backgroundSelected) warning = warning + "Select background! \n";
+      if (!specializationSelected) warning = warning + "Select class! \n";
+      if (!subclassSelected) warning = warning + "Select subclass! \n";
+      if (warning) return alert(warning);
+      axios
+        .get(
+          `http://localhost:8080/character?classId=${specializationSelected}&subclassId=${subclassSelected}&backgroundId=${backgroundSelected}&raceId=${raceSelected}`
+        )
+        .then(response => {
+          this.pdf = response.data;
+        })
+        .catch(e => {
+          this.errors.push(e);
+        });
+      console.log(this.pdf);
+    }
+  },
   data: function() {
     return {
       backgrounds: [],
@@ -127,7 +153,8 @@ export default {
       raceSelected: "",
       backgroundSelected: "",
       specializationSelected: "",
-      subclassSelected: ""
+      subclassSelected: "",
+      pdf: ""
     };
   },
   created() {
@@ -197,6 +224,10 @@ export default {
       });
   }
 };
+
+function create_char() {
+  console.log("hi");
+}
 </script>
 
 <style></style>
