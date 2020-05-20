@@ -13,6 +13,7 @@ public class Class {
 
     private String name;
 
+    // All features for the class stored in mysql
     private String feature1;
     private String feature2;
     private String feature3;

@@ -6,14 +6,17 @@ public class WriteController {
 
     public void writeCharacter(Document document, Character character) throws DocumentException {
 
+        // Set different types of font for pdf writing
         Font maxTitleFont = FontFactory.getFont(FontFactory.TIMES_BOLD, 28, BaseColor.BLACK);
         Font titleFont = FontFactory.getFont(FontFactory.TIMES_BOLD, 16, BaseColor.BLACK);
         Font textFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12, BaseColor.BLACK);
 
+        // Main title
         document.add(new Paragraph("\n"));
         document.add(new Chunk("DND CHARACTER", maxTitleFont));
         document.add(new Paragraph("\n\n\n"));
 
+        // Write whole character class
         document.add(new Chunk("Class: " + character.getCharacterClass().getName(), titleFont));
         document.add(new Paragraph("\n\n"));
         document.add(new Chunk("Features: ", titleFont));
@@ -57,6 +60,7 @@ public class WriteController {
         }
         document.add(new Paragraph("\n\n\n"));
 
+        // Write whole character subclass
         document.add(new Chunk("Subclass: " + character.getCharacterSubclass().getName(), titleFont));
         document.add(new Paragraph("\n\n"));
         document.add(new Chunk("Features: ", titleFont));
@@ -100,6 +104,7 @@ public class WriteController {
         }
         document.add(new Paragraph("\n\n\n"));
 
+        // Write whole character background
         document.add(new Chunk("Background: " + character.getCharacterBackground().getName(), titleFont));
         document.add(new Paragraph("\n\n"));
         document.add(new Chunk("Features: ", titleFont));
@@ -143,6 +148,7 @@ public class WriteController {
         }
         document.add(new Paragraph("\n\n\n"));
 
+        // Write whole character race
         document.add(new Chunk("Race: " + character.getCharacterRace().getName(), titleFont));
         document.add(new Paragraph("\n\n"));
         document.add(new Chunk("Features: ", titleFont));
