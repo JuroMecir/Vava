@@ -1,0 +1,38 @@
+2020-05-20 20:32:50.400  INFO 13320 --- [main] com.db.vava.VavaApplication              : Starting VavaApplication on DESKTOP-2OJ8OQF with PID 13320 (C:\Users\taddo3\Desktop\Vava\target\classes started by taddo3 in C:\Users\taddo3\Desktop\Vava)
+2020-05-20 20:32:50.403  INFO 13320 --- [main] com.db.vava.VavaApplication              : No active profile set, falling back to default profiles: default
+2020-05-20 20:32:51.115  INFO 13320 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-05-20 20:32:51.166  INFO 13320 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 46ms. Found 4 JPA repository interfaces.
+2020-05-20 20:32:51.516  INFO 13320 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-20 20:32:51.521  INFO 13320 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-20 20:32:51.522  INFO 13320 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-05-20 20:32:51.616  INFO 13320 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-20 20:32:51.616 DEBUG 13320 --- [main] o.s.web.context.ContextLoader            : Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-05-20 20:32:51.616  INFO 13320 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1169 ms
+2020-05-20 20:32:51.760  INFO 13320 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-05-20 20:32:51.802  INFO 13320 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-05-20 20:32:51.842  WARN 13320 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-20 20:32:51.845  INFO 13320 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.15.Final
+2020-05-20 20:32:51.929  INFO 13320 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-05-20 20:32:51.995  INFO 13320 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-20 20:32:52.245  INFO 13320 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-20 20:32:52.259  INFO 13320 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2020-05-20 20:32:52.693  INFO 13320 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-05-20 20:32:52.698  INFO 13320 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-20 20:32:52.856 DEBUG 13320 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-05-20 20:32:52.889 DEBUG 13320 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 7 mappings in 'requestMappingHandlerMapping'
+2020-05-20 20:32:52.933 DEBUG 13320 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-05-20 20:32:52.939 DEBUG 13320 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-05-20 20:32:53.004  INFO 13320 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-20 20:32:53.005  INFO 13320 --- [main] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-05-20 20:32:53.132  INFO 13320 --- [main] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-05-20 20:32:53.138  INFO 13320 --- [main] com.db.vava.VavaApplication              : Started VavaApplication in 3.112 seconds (JVM running for 4.09)
+2020-05-20 20:33:00.537  INFO 13320 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-20 20:33:00.537  INFO 13320 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-20 20:33:00.537 DEBUG 13320 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2020-05-20 20:33:00.548 DEBUG 13320 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='true': request parameters and headers will be shown which may lead to unsafe logging of potentially sensitive data
+2020-05-20 20:33:00.549  INFO 13320 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2020-05-20 20:33:00.559 DEBUG 13320 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/character/races", parameters={}
+2020-05-20 20:33:00.562 DEBUG 13320 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.db.vava.MainController#getAllRaces()
+2020-05-20 20:33:00.606 DEBUG 13320 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json;q=0.8', given [text/html, application/xhtml+xml, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.9, */*;q=0.8] and supported [application/json, application/*+json, application/json, application/*+json]
+2020-05-20 20:33:00.607 DEBUG 13320 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [[com.db.vava.Race@69aba8e, com.db.vava.Race@14c1608f, com.db.vava.Race@ae45d91, com.db.vava.Race@4ac (truncated)...]
+2020-05-20 20:33:00.641 DEBUG 13320 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
