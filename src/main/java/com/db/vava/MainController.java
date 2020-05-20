@@ -41,16 +41,18 @@ public class MainController {
 
     //@CrossOrigin(origins = "*")
     @GetMapping(path="/subclasses")
-    public @ResponseBody List<Subclass> getSubclasses(@RequestParam Integer classId) {
+    public @ResponseBody
+    List<Subclass> getSubclasses() {
         // This returns a JSON or XML with the races
         List<Subclass> subclasses = new ArrayList<Subclass>();
-        List<Integer> ids = subclassRepository.findIdsByClassId(classId);
-        List<String> names = subclassRepository.findNamesByClassId(classId);
+        List<Integer> ids = subclassRepository.getAllIds();
+        List<String> names = subclassRepository.getAllNames();
+        List<Integer> classIds = subclassRepository.getAllClassIds();
         for (int i = 0; i < ids.size(); i++) {
             Subclass actualSubclass = new Subclass();
             actualSubclass.setId(ids.get(i));
             actualSubclass.setName(names.get(i));
-            actualSubclass.setClassId(classId);
+            actualSubclass.setClassId(classIds.get(i));
             subclasses.add(actualSubclass);
         }
         return subclasses;
