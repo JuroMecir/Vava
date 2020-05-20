@@ -12,6 +12,7 @@ public class Subclass {
 
     private Integer classId;
 
+    // All features for the subclass stored in mysql
     private String feature1;
     private String feature2;
     private String feature3;

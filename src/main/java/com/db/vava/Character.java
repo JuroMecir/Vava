@@ -1,6 +1,7 @@
 package com.db.vava;
 
 public class Character {
+    // Character consist of 4 objects and in our program is printed in character.pdf
     private Class characterClass;
     private Subclass characterSubclass;
     private Background characterBackground;

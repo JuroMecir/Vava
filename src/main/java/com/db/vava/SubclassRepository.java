@@ -12,12 +12,15 @@ import java.util.List;
 @Repository
 public interface SubclassRepository extends JpaRepository<Subclass, Integer> {
 
+    // This return Race id by classId
     @Query("select s.id from Subclass s where s.classId = ?1")
     List<Integer> findIdsByClassId(Integer classId);
 
+    // This return Race name by classId
     @Query("select s.name from Subclass s where s.classId = ?1")
     List<String> findNamesByClassId(Integer classId);
 
+    // This return whole Race object with all features by id
     @Query("select s from Subclass s where s.id = ?1")
     Subclass getById(Integer id);
 
