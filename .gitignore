@@ -32,3 +32,6 @@ build/
 
 ### Log files ###
 *.log
+
+### PDF character ###
+character.pdf
