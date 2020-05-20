@@ -1,20 +1,29 @@
 <template>
   <div class="q-pa-md">
     <q-stepper v-model="step" ref="stepper" color="primary" animated>
-      <q-step :name="1" title="Choose race" icon="settings" :done="step > 1">
+      <q-step
+        :name="1"
+        :title="$t('chooseRaceTag')"
+        icon="settings"
+        :done="step > 1"
+      >
         <template>
           <div class="q-pa-md" style="max-width: 300px">
             <div class="q-gutter-md">
-              <q-select v-model="raceSelected" :options="races" label="Standard" filled />
+              <q-select
+                v-model="raceSelected"
+                :options="races"
+                label="Standard"
+                filled
+              />
             </div>
-            <span>Selected: {{ raceSelected }}</span>
           </div>
         </template>
       </q-step>
 
       <q-step
         :name="2"
-        title="Choose background"
+        :title="$t('chooseBackgroundTag')"
         caption="Optional"
         icon="create_new_folder"
         :done="step > 2"
@@ -23,15 +32,18 @@
           <div class="q-pa-md" style="max-width: 300px">
             <div class="q-gutter-md">
               <form>
-                <q-select v-model="backgroundSelected" :options="backgrounds" label="Standard" />
+                <q-select
+                  v-model="backgroundSelected"
+                  :options="backgrounds"
+                  label="Standard"
+                />
               </form>
-              <span>Selected: {{ backgroundSelected }}</span>
             </div>
           </div>
         </template>
       </q-step>
 
-      <q-step :name="3" title="Choose class" icon="assignment">
+      <q-step :name="3" :title="$t('chooseClassTag')" icon="assignment">
         <template>
           <div class="q-pa-md" style="max-width: 300px">
             <div class="q-gutter-md">
@@ -41,12 +53,11 @@
                 label="Standard"
               />
             </div>
-            <span>Selected: {{ specializationSelected }}</span>
           </div>
         </template>
       </q-step>
 
-      <q-step :name="4" title="Choose subclass" icon="assignment">
+      <q-step :name="4" :title="$t('chooseSubclassTag')" icon="assignment">
         <template>
           <div class="q-pa-md" style="max-width: 300px">
             <div class="q-gutter-md">
@@ -54,39 +65,56 @@
                 v-model="subclassSelected"
                 :options="
                   subclasses.filter(
-                    item => item.class === specializationSelected
+                    item => item.classId === specializationSelected
                   )
                 "
                 label="Standard"
               />
-              <span>Selected: {{ subclassSelected }}</span>
             </div>
             <br />
           </div>
         </template>
       </q-step>
 
-      <q-step :name="5" title="Create Character" icon="add_comment">
+      <q-step :name="5" :title="$t('createCharacterTag')" icon="add_comment">
         <ul>
           <li>
-            Race: {{ raceSelected ? (races.find(
-            item => item.value === raceSelected
-            )).label : 'Please choose your race.' }}
+            {{ $t("raceTag") }}:
+            {{
+              raceSelected
+                ? races.find(item => item.value === raceSelected).label
+                : $t("raceMissingTag")
+            }}
           </li>
           <li>
-            Background: {{ backgroundSelected ? (backgrounds.find(
-            item => item.value === backgroundSelected
-            )).label : 'Please choose your background.' }}
+            {{ $t("backgroundTag") }}:
+            {{
+              backgroundSelected
+                ? backgrounds.find(item => item.value === backgroundSelected)
+                    .label
+                : $t("backgroundMissingTag")
+            }}
           </li>
           <li>
-            Class: {{ specializationSelected ? (specializations.find(
-            item => item.value === specializationSelected
-            )).label : 'Please choose your class.' }}
+            {{ $t("classTag") }}:
+            {{
+              specializationSelected
+                ? specializations.find(
+                    item => item.value === specializationSelected
+                  ).label
+                : $t("classMissingTag")
+            }}
           </li>
           <li>
-            Subclass: {{ subclassSelected ? (subclasses.find(
-            item => item.value === subclassSelected
-            )).label : 'Please choose your subclass.' }}
+            {{ $t("subclassTag") }}:
+            {{
+              subclassSelected &&
+              subclasses.find(item => item.value === subclassSelected) &&
+              subclasses.find(item => item.value === subclassSelected)
+                .classId === specializationSelected
+                ? subclasses.find(item => item.value === subclassSelected).label
+                : $t("subclassMissingTag")
+            }}
           </li>
         </ul>
       </q-step>
@@ -98,13 +126,27 @@
             flat
             color="primary"
             @click="$refs.stepper.previous()"
-            label="Back"
+            :label="$t('backTag')"
             class="q-ml-sm"
           />
           <q-btn
-            v-on:click="step === 5 ? create_char(raceSelected,backgroundSelected,specializationSelected,subclassSelected) :$refs.stepper.next() "
+            v-on:click="
+              step === 5
+                ? create_char(
+                    raceSelected,
+                    backgroundSelected,
+                    specializationSelected,
+                    subclassSelected,
+                    subclasses,
+                    $t('raceMissingTag'),
+                    $t('classMissingTag'),
+                    $t('subclassMissingTag'),
+                    $t('backgroundMissingTag')
+                  )
+                : $refs.stepper.next()
+            "
             color="primary"
-            :label="step === 5 ? 'Finish' : 'Continue'"
+            :label="step === 5 ? $t('createCharacterTag') : $t('continueTag')"
           />
         </q-stepper-navigation>
       </template>
@@ -122,25 +164,30 @@ export default {
       raceSelected,
       backgroundSelected,
       specializationSelected,
-      subclassSelected
+      subclassSelected,
+      subclasses,
+      raceMissingTag,
+      classMissingTag,
+      subclassMissingTag,
+      backgroundMissingTag
     ) {
       let warning = "";
-      if (!raceSelected) warning = warning + "Select race! \n";
-      if (!backgroundSelected) warning = warning + "Select background! \n";
-      if (!specializationSelected) warning = warning + "Select class! \n";
-      if (!subclassSelected) warning = warning + "Select subclass! \n";
+      let x = 0;
+      let temp = subclasses.find(item => item.value === subclassSelected);
+      console.log(temp);
+      if (!raceSelected) warning = warning + raceMissingTag + " \n";
+      if (!backgroundSelected) warning = warning + backgroundMissingTag + " \n";
+      if (!specializationSelected) warning = warning + classMissingTag + " \n";
+      if (!subclassSelected) {
+        warning = warning + subclassMissingTag + " \n";
+        x++;
+      }
+      if (x === 0) {
+        if (temp.classId !== specializationSelected)
+          warning = warning + subclassMissingTag + " \n";
+      }
       if (warning) return alert(warning);
-      axios
-        .get(
-          `http://localhost:8080/character?classId=${specializationSelected}&subclassId=${subclassSelected}&backgroundId=${backgroundSelected}&raceId=${raceSelected}`
-        )
-        .then(response => {
-          this.pdf = response.data;
-        })
-        .catch(e => {
-          this.errors.push(e);
-        });
-      console.log(this.pdf);
+      location.href = `http://localhost:8080/character?classId=${specializationSelected}&subclassId=${subclassSelected}&backgroundId=${backgroundSelected}&raceId=${raceSelected}`;
     }
   },
   data: function() {
@@ -154,8 +201,18 @@ export default {
       backgroundSelected: "",
       specializationSelected: "",
       subclassSelected: "",
-      pdf: ""
+      pdf: "",
+      lang: this.$i18n.locale,
+      langOptions: [
+        { value: "en-us", label: "English" },
+        { value: "sk", label: "Slovak" }
+      ]
     };
+  },
+  watch: {
+    lang(lang) {
+      this.$i18n.locale = lang;
+    }
   },
   created() {
     axios
@@ -213,7 +270,7 @@ export default {
           temp.push({
             label: element.name,
             value: element.id,
-            class: element.classId
+            classId: element.classId
           });
         });
         this.subclasses = temp;
