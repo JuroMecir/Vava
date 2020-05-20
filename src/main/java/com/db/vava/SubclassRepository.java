@@ -21,4 +21,13 @@ public interface SubclassRepository extends JpaRepository<Subclass, Integer> {
     @Query("select s from Subclass s where s.id = ?1")
     Subclass getById(Integer id);
 
+    @Query("select c.id from Subclass c")
+    List<Integer> getAllIds();
+
+    @Query("select c.name from Subclass c")
+    List<String> getAllNames();
+
+    @Query("select c.classId from Subclass c")
+    List<Integer> getAllClassIds();
+
 }

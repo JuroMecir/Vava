@@ -11,7 +11,7 @@
         title="Choose race"
         icon="settings"
         :done="step > 1"
-      >
+      > 
         <template>
             <q-page padding>
               <q-list highlight>

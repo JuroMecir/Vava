@@ -1,24 +1,10 @@
 package com.db.vava;
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.servlet.http.HttpServletResponse;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +22,7 @@ public class MainController {
     @Autowired
     private BackgroundRepository backgroundRepository;
 
-
+    //@CrossOrigin(origins = "*")
     @GetMapping(path="/classes")
     public @ResponseBody
     List<Class> getAllClasses() {
@@ -53,22 +39,26 @@ public class MainController {
         return classes;
     }
 
+    //@CrossOrigin(origins = "*")
     @GetMapping(path="/subclasses")
-    public @ResponseBody List<Subclass> getSubclasses(@RequestParam Integer classId) {
+    public @ResponseBody
+    List<Subclass> getSubclasses() {
         // This returns a JSON or XML with the races
         List<Subclass> subclasses = new ArrayList<Subclass>();
-        List<Integer> ids = subclassRepository.findIdsByClassId(classId);
-        List<String> names = subclassRepository.findNamesByClassId(classId);
+        List<Integer> ids = subclassRepository.getAllIds();
+        List<String> names = subclassRepository.getAllNames();
+        List<Integer> classIds = subclassRepository.getAllClassIds();
         for (int i = 0; i < ids.size(); i++) {
             Subclass actualSubclass = new Subclass();
             actualSubclass.setId(ids.get(i));
             actualSubclass.setName(names.get(i));
-            actualSubclass.setClassId(classId);
+            actualSubclass.setClassId(classIds.get(i));
             subclasses.add(actualSubclass);
         }
         return subclasses;
     }
 
+    //@CrossOrigin(origins = "*")
     @GetMapping(path="/backgrounds")
     public @ResponseBody
     List<Background> getAllBackgrounds() {
@@ -85,6 +75,7 @@ public class MainController {
         return backgrounds;
     }
 
+    //@CrossOrigin(origins = "*")
     @GetMapping(path="/races")
     public @ResponseBody
     List<Race> getAllRaces() {
@@ -102,52 +93,13 @@ public class MainController {
     }
 
     @GetMapping(path="")
-    public void getCharacter(HttpServletResponse response,
-                                     @RequestParam Integer classId,
-                                     @RequestParam Integer subclassId,
-                                     @RequestParam Integer backgroundId,
-                                     @RequestParam Integer raceId) throws Exception {
-
+    public @ResponseBody Character getCharacter(@RequestParam Integer classId, @RequestParam Integer subclassId,
+                                                     @RequestParam Integer backgroundId, @RequestParam Integer raceId) {
         Character character = new Character();
         character.setCharacterClass(classRepository.getById(classId));
         character.setCharacterSubclass(subclassRepository.getById(subclassId));
         character.setCharacterBackground(backgroundRepository.getById(backgroundId));
         character.setCharacterRace(raceRepository.getById(raceId));
-
-        Document document = new Document();
-        try {
-            PdfWriter.getInstance(document, new FileOutputStream("character.pdf"));
-        } catch (DocumentException | FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        document.open();
-        WriteController writeController = new WriteController();
-        writeController.writeCharacter(document, character);
-        document.close();
-        generateReport(response);
+        return character;
     }
-
-    public void generateReport(HttpServletResponse response) throws Exception {
-
-        Path pdfPath = Paths.get("character.pdf");
-        byte[] data = Files.readAllBytes(pdfPath);
-        streamReport(response, data, "character.pdf");
-    }
-
-    protected void streamReport(HttpServletResponse response, byte[] data, String name) throws IOException {
-
-        response.setContentType("application/pdf");
-        response.setHeader("Content-disposition", "attachment; filename=" + name);
-        response.setContentLength(data.length);
-        //response.setHeader("Refresh", "1; url = https://www.google.com");
-
-        response.getOutputStream().write(data);
-        response.getOutputStream().flush();
-        response.getOutputStream().close();
-
-    }
-
 }
-
-
