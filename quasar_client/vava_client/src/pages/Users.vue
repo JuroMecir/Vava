@@ -1,21 +1,12 @@
 <template>
   <div class="q-pa-md">
     <q-stepper v-model="step" ref="stepper" color="primary" animated>
-      <q-step
-        :name="1"
-        :title="$t('chooseRaceTag')"
-        icon="settings"
-        :done="step > 1"
-      >
+      <q-step :name="1" :title="$t('chooseRaceTag')" icon="settings" :done="step > 1">
         <template>
           <div class="q-pa-md" style="max-width: 300px">
+            {{ $t("chooseRaceTag") }}:
             <div class="q-gutter-md">
-              <q-select
-                v-model="raceSelected"
-                :options="races"
-                label="Standard"
-                filled
-              />
+              <q-select v-model="raceSelected" :options="races" label="Standard" filled />
             </div>
           </div>
         </template>
@@ -31,12 +22,9 @@
         <template>
           <div class="q-pa-md" style="max-width: 300px">
             <div class="q-gutter-md">
+              {{ $t("chooseBackgroundTag") }}:
               <form>
-                <q-select
-                  v-model="backgroundSelected"
-                  :options="backgrounds"
-                  label="Standard"
-                />
+                <q-select v-model="backgroundSelected" :options="backgrounds" label="Standard" />
               </form>
             </div>
           </div>
@@ -47,6 +35,7 @@
         <template>
           <div class="q-pa-md" style="max-width: 300px">
             <div class="q-gutter-md">
+              {{ $t("chooseClassTag") }}:
               <q-select
                 v-model="specializationSelected"
                 :options="specializations"
@@ -61,6 +50,7 @@
         <template>
           <div class="q-pa-md" style="max-width: 300px">
             <div class="q-gutter-md">
+              {{ $t("chooseSubclassTag") }}:
               <q-select
                 v-model="subclassSelected"
                 :options="
@@ -71,56 +61,56 @@
                 label="Standard"
               />
             </div>
-            <br />
           </div>
         </template>
       </q-step>
 
       <q-step :name="5" :title="$t('createCharacterTag')" icon="add_comment">
         <ul>
+          {{ $t("createCharacterTag") }}:
           <li>
             {{ $t("raceTag") }}:
             {{
-              raceSelected
-                ? races.find(item => item.value === raceSelected).label
-                : $t("raceMissingTag")
+            raceSelected
+            ? races.find(item => item.value === raceSelected).label
+            : $t("raceMissingTag")
             }}
           </li>
           <li>
             {{ $t("backgroundTag") }}:
             {{
-              backgroundSelected
-                ? backgrounds.find(item => item.value === backgroundSelected)
-                    .label
-                : $t("backgroundMissingTag")
+            backgroundSelected
+            ? backgrounds.find(item => item.value === backgroundSelected)
+            .label
+            : $t("backgroundMissingTag")
             }}
           </li>
           <li>
             {{ $t("classTag") }}:
             {{
-              specializationSelected
-                ? specializations.find(
-                    item => item.value === specializationSelected
-                  ).label
-                : $t("classMissingTag")
+            specializationSelected
+            ? specializations.find(
+            item => item.value === specializationSelected
+            ).label
+            : $t("classMissingTag")
             }}
           </li>
           <li>
             {{ $t("subclassTag") }}:
             {{
-              subclassSelected &&
-              subclasses.find(item => item.value === subclassSelected) &&
-              subclasses.find(item => item.value === subclassSelected)
-                .classId === specializationSelected
-                ? subclasses.find(item => item.value === subclassSelected).label
-                : $t("subclassMissingTag")
+            subclassSelected &&
+            subclasses.find(item => item.value === subclassSelected) &&
+            subclasses.find(item => item.value === subclassSelected)
+            .classId === specializationSelected
+            ? subclasses.find(item => item.value === subclassSelected).label
+            : $t("subclassMissingTag")
             }}
           </li>
         </ul>
       </q-step>
 
       <template v-slot:navigation>
-        <q-stepper-navigation>
+        <q-stepper-navigation order-first>
           <q-btn
             v-if="step > 1"
             flat
@@ -145,7 +135,6 @@
                   )
                 : $refs.stepper.next()
             "
-            align="center"
             color="primary"
             :label="step === 5 ? $t('createCharacterTag') : $t('continueTag')"
           />
@@ -202,7 +191,11 @@ export default {
 
       if (warnings.toString()) {
         warnings.forEach(element =>
-          this.$q.notify({ message: element, color: "red" })
+          this.$q.notify({
+            message: element,
+            color: "red",
+            icon: "warning"
+          })
         );
         return null;
       }
@@ -307,4 +300,10 @@ function create_char() {
 }
 </script>
 
-<style type="text/css"></style>
+<style type="text/css">
+.container {
+  height: 200px;
+  position: relative;
+  border: 3px solid green;
+}
+</style>

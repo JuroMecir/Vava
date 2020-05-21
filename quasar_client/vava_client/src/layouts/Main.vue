@@ -1,23 +1,16 @@
 <template>
   <q-layout>
     <q-layout-header>
-      <q-toolbar :glossy="$q.theme === 'mat'" :inverted="$q.theme === 'ios'">
+      <q-toolbar class="bg-primary text-white">
         <q-toolbar-title>
           5e Character sheet creator
-          <div slot="subtitle">
-            {{ $t("runningOnTag") }} Quasar v{{ $q.version }}
-          </div>
+          <div slot="subtitle">{{ $t("runningOnTag") }} Quasar v{{ $q.version }}</div>
         </q-toolbar-title>
         <q-select
+          inverted
           v-model="lang"
           :options="langOptions"
-          label="Quasar Language"
-          justify-center
-          dense
           standout="bg-primary text-white"
-          emit-value
-          map-options
-          options-dense
           style="min-width: 150px"
         />
       </q-toolbar>
@@ -48,3 +41,4 @@ export default {
   }
 };
 </script>
+
